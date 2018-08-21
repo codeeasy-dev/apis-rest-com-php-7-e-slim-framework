@@ -7,12 +7,28 @@ require_once "vendor/autoload.php";
 
 $app = new \Slim\App();
 
-$app->get('/produtos[/{nome}]', function(Request $request, Response $response, array $args) {
-    $limit = $request->getQueryParams()['limit'] ?? 10;
-    $nome = $args['nome'] ?? 'mouse';
+$app->post('/produto', function(Request $request, Response $response, array $args) {
+    $data = $request->getParsedBody();
     
-    return $response->getBody()
-        ->write("{$limit} produtos do banco de dados com o nome {$nome}");
+    $nome = $data['nome'] ?? '';
+    
+    return $response->getBody()->write("Produto {$nome} (POST)");
+});
+
+$app->put('/produto', function(Request $request, Response $response, array $args) {
+    $data = $request->getParsedBody();
+    
+    $nome = $data['nome'] ?? '';
+    
+    return $response->getBody()->write("Produto {$nome} (PUT)");
+});
+
+$app->delete('/produto', function(Request $request, Response $response, array $args) {
+    $data = $request->getParsedBody();
+    
+    $nome = $data['nome'] ?? '';
+    
+    return $response->getBody()->write("Produto {$nome} (DELETE)");
 });
 
 $app->run();
