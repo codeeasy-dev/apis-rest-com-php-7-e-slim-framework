@@ -3,3 +3,5 @@ vendor/
 .project
 .settings/
 composer.lock
+env.php
+composer.phar

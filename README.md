@@ -6,4 +6,10 @@ Material do curso
 * E-mail: feliperenanvieira@gmail.com
 * Github: [https://github.com/frv-dev](https://github.com/frv-dev)
 * Site: [https://codeeasy.com.br](https://codeeasy.com.br)
-* Chat: [https://gitter.im/frv-dev/CodeEasy](https://gitter.im/frv-dev/CodeEasy) 
+* Chat: [https://gitter.im/frv-dev/CodeEasy](https://gitter.im/frv-dev/CodeEasy)
+
+## CONFIGURAÇÃO
+
+Copie o arquivo `env.example.php` para `env.php` e preencha com as informações necessárias
+
+Rode no terminal `composer install` ou `php composer.phar install` dependendo de como você usa o composer
