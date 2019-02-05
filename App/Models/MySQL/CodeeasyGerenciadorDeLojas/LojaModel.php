@@ -29,6 +29,12 @@ final class LojaModel
         return $this->id;
     }
 
+    public function setId(int $id): LojaModel
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     /**
      * @return string
      */
