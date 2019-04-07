@@ -17,6 +17,14 @@ $app = new \Slim\App(slimConfiguration());
 
 // =========================================
 
+$app->group('/v1', function() use($app) {
+    $app->get('/test-with-versions', function() { return "oi v1"; });
+});
+
+$app->group('/v2', function() use($app) {
+    $app->get('/test-with-versions', function() { return "oi v2"; });
+});
+
 $app->get('/exception-test', ExceptionController::class . ':test');
 
 $app->post('/login', AuthController::class . ':login');
