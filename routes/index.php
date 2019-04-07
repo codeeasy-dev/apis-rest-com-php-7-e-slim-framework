@@ -8,14 +8,16 @@ use function src\{
 use App\Controllers\{
     ProdutoController,
     LojaController,
-    AuthController
+    AuthController,
+    ExceptionController
 };
-use Tuupola\Middleware\JwtAuthentication;
 use App\Middlewares\JwtDateTimeMiddleware;
 
 $app = new \Slim\App(slimConfiguration());
 
 // =========================================
+
+$app->get('/exception-test', ExceptionController::class . ':test');
 
 $app->post('/login', AuthController::class . ':login');
 $app->post('/refresh-token', AuthController::class . ':refreshToken');
