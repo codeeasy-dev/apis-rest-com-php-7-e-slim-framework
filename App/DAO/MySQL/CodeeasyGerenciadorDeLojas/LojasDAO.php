@@ -55,7 +55,7 @@ class LojasDAO extends Conexao
             'nome' => $loja->getNome(),
             'telefone' => $loja->getTelefone(),
             'endereco' => $loja->getEndereco(),
-            'id' => $id
+            'id' => $loja->getId()
         ]);
     }
 
