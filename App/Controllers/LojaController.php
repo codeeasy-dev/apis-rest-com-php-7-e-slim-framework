@@ -21,9 +21,16 @@ final class LojaController
     public function getLojas(Request $request, Response $response, array $args): Response
     {
         $lojas = $this->lojasDAO->getAllLojas();
-        $response = $response->withJson($lojas);
+        $response->getBody()->write(
+            json_encode(
+                $lojas,
+                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+            )
+        );
 
-        return $response;
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 
     public function insertLoja(Request $request, Response $response, array $args): Response
