@@ -5,24 +5,32 @@ use function src\{
     basicAuth,
     jwtAuth
 };
+
 use App\Controllers\{
     ProdutoController,
     LojaController,
     AuthController,
     ExceptionController
 };
-use App\Middlewares\JwtDateTimeMiddleware;
 
 $app = new \Slim\App(slimConfiguration());
 
 // =========================================
 
-$app->group('/v1', function() use($app) {
-    $app->get('/test-with-versions', function() { return "oi v1"; });
+$app->get('/', function () {
+    echo 'oi';
 });
 
-$app->group('/v2', function() use($app) {
-    $app->get('/test-with-versions', function() { return "oi v2"; });
+$app->group('/v1', function () use ($app) {
+    $app->get('/test-with-versions', function () {
+        return "oi v1";
+    });
+});
+
+$app->group('/v2', function () use ($app) {
+    $app->get('/test-with-versions', function () {
+        return "oi v2";
+    });
 });
 
 $app->get('/exception-test', ExceptionController::class . ':test');
@@ -30,11 +38,11 @@ $app->get('/exception-test', ExceptionController::class . ':test');
 $app->post('/login', AuthController::class . ':login');
 $app->post('/refresh-token', AuthController::class . ':refreshToken');
 
-$app->get('/teste', function() { echo "oi"; })
-    ->add(new JwtDateTimeMiddleware())
-    ->add(jwtAuth());
+$app->get('/teste', function () {
+    echo "oi";
+})->add(jwtAuth());
 
-$app->group('', function() use ($app) {
+$app->group('', function () use ($app) {
     $app->get('/loja', LojaController::class . ':getLojas');
     $app->post('/loja', LojaController::class . ':insertLoja');
     $app->put('/loja', LojaController::class . ':updateLoja');

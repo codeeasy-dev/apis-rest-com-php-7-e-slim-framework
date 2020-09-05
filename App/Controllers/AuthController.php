@@ -22,17 +22,19 @@ final class AuthController
         $usuariosDAO = new UsuariosDAO();
         $usuario = $usuariosDAO->getUserByEmail($email);
 
-        if(is_null($usuario))
+        if (is_null($usuario)) {
             return $response->withStatus(401);
+        }
 
-        if(!password_verify($senha, $usuario->getSenha()))
+        if (!password_verify($senha, $usuario->getSenha())) {
             return $response->withStatus(401);
+        }
 
         $tokenPayload = [
             'sub' => $usuario->getId(),
             'name' => $usuario->getNome(),
             'email' => $usuario->getEmail(),
-            'expired_at' => $expireDate
+            'exp' => (new \DateTime($expireDate))->getTimestamp()
         ];
 
         $token = JWT::encode($tokenPayload, getenv('JWT_SECRET_KEY'));
@@ -73,12 +75,14 @@ final class AuthController
 
         $tokensDAO = new TokensDAO();
         $refreshTokenExists = $tokensDAO->verifyRefreshToken($refreshToken);
-        if(!$refreshTokenExists)
+        if (!$refreshTokenExists) {
             return $response->withStatus(401);
+        }
         $usuariosDAO = new UsuariosDAO();
         $usuario = $usuariosDAO->getUserByEmail($refreshTokenDecoded->email);
-        if(is_null($usuario))
+        if (is_null($usuario)) {
             return $response->withStatus(401);
+        }
 
         $tokenPayload = [
             'sub' => $usuario->getId(),
